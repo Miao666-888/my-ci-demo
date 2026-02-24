@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Java 测试平台</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; }
+        h2 { color: #2c3e50; }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover { background: #2980b9; }
+        pre {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 15px;
+            margin-top: 20px;
+            overflow-x: auto;
+            border-radius: 4px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+<h2>🧪 Java 自动化测试平台</h2>
+<button onclick="runTest()">🚀 运行 DemoTest</button>
+<pre id="result">点击按钮开始执行测试...</pre>
+
+<script>
+    async function runTest() {
+        const resultEl = document.getElementById("result");
+        resultEl.innerText = "正在执行测试，请稍候...";
+        try {
+            const res = await fetch("/run-test");
+            const text = await res.text();
+            resultEl.innerText = text || "无输出";
+        } catch (err) {
+            resultEl.innerText = "❌ 请求失败: " + err.message;
+        }
+    }
+</script>
+</body>
+</html>
